@@ -1,0 +1,1 @@
+ضع شعارك داخل مجلد assets باسم logo.png ثم ارفع جميع الملفات إلى GitHub Pages.
