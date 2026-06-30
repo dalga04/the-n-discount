@@ -48,28 +48,29 @@ function show(data) {
             </span>
         </div>
 
-        <p>
-            Please keep this code and show it at checkout.
-        </p>
+        <p>Please keep this code and show it at checkout.</p>
     `;
 }
 
 const saved = localStorage.getItem(key);
 
 if (saved) {
-
+    // إذا كان لديه خصم سابق
     show(JSON.parse(saved));
-
 } else {
+    // انتظر حتى يضغط المستخدم الزر
+    button.addEventListener("click", () => {
 
-    const discount = Math.random() < 0.5 ? "15%" : "20%";
+        const discount = Math.random() < 0.5 ? "15%" : "20%";
 
-    const data = {
-        discount: discount,
-        code: generateCode()
-    };
+        const data = {
+            discount: discount,
+            code: generateCode()
+        };
 
-    localStorage.setItem(key, JSON.stringify(data));
+        localStorage.setItem(key, JSON.stringify(data));
 
-    show(data);
+        show(data);
+
+    });
 }
