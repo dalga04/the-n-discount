@@ -1,79 +1,44 @@
-const key = "the_n_discount_v1";
-
-const result = document.getElementById("result");
 const button = document.getElementById("drawBtn");
+const result = document.getElementById("result");
 
-function generateCode() {
-    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-    let random = "";
+button.onclick = function () {
 
-    for (let i = 0; i < 6; i++) {
-        random += chars.charAt(Math.floor(Math.random() * chars.length));
+    let saved = localStorage.getItem("the_n_discount");
+
+    if (saved) {
+        const data = JSON.parse(saved);
+
+        result.innerHTML = `
+            <h2>🎉 Congratulations!</h2>
+            <h1>${data.discount}</h1>
+            <h3>${data.code}</h3>
+        `;
+
+        button.style.display = "none";
+        return;
     }
 
-    return "THE-N-" + random;
-}
+    const discount = Math.random() < 0.5 ? "15%" : "20%";
 
-function show(data) {
-    button.style.display = "none";
+    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    let code = "THE-N-";
+
+    for (let i = 0; i < 6; i++) {
+        code += chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    const data = {
+        discount: discount,
+        code: code
+    };
+
+    localStorage.setItem("the_n_discount", JSON.stringify(data));
 
     result.innerHTML = `
         <h2>🎉 Congratulations!</h2>
-
-        <div style="
-            font-size:48px;
-            color:#d4af37;
-            font-weight:bold;
-            margin:20px 0;
-        ">
-            ${data.discount}
-        </div>
-
-        <div style="
-            background:#fff;
-            color:#000;
-            padding:15px;
-            border-radius:12px;
-            margin:20px 0;
-        ">
-            <strong>Discount Code</strong><br><br>
-
-            <span style="
-                font-size:28px;
-                color:#d4af37;
-                font-weight:bold;
-                letter-spacing:2px;
-            ">
-                ${data.code}
-            </span>
-        </div>
-
-        <p>Please keep this code and show it at checkout.</p>
+        <h1>${discount}</h1>
+        <h3>${code}</h3>
     `;
-}
 
-
-const saved = localStorage.getItem(key);
-
-if (saved) {
-
-    show(JSON.parse(saved));
-
-} else {
-
-    button.addEventListener("click", function () {
-
-        const discount = Math.random() < 0.5 ? "15%" : "20%";
-
-        const data = {
-            discount: discount,
-            code: generateCode()
-        };
-
-        localStorage.setItem(key, JSON.stringify(data));
-
-        show(data);
-
-    });
-
-}
+    button.style.display = "none";
+};
