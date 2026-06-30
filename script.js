@@ -3,15 +3,54 @@ const key = "the_n_discount_v1";
 const result = document.getElementById("result");
 const button = document.getElementById("drawBtn");
 
+function generateCode() {
+    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    let random = "";
+
+    for (let i = 0; i < 6; i++) {
+        random += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+
+    return "THE-N-" + random;
+}
+
 function show(data) {
     button.style.display = "none";
 
     result.innerHTML = `
-        <h2>🎉 مبروك!</h2>
-        <h1>${data.discount}</h1>
-        <p><strong>رقم الخصم</strong></p>
-        <h2 style="color:#d4af37">${data.code}</h2>
-        <p>احتفظ بهذا الرقم لإبراز الخصم.</p>
+        <h2>🎉 Congratulations!</h2>
+
+        <div style="
+            font-size:48px;
+            color:#d4af37;
+            font-weight:bold;
+            margin:20px 0;
+        ">
+            ${data.discount}
+        </div>
+
+        <div style="
+            background:#fff;
+            color:#000;
+            padding:15px;
+            border-radius:12px;
+            margin:20px 0;
+        ">
+            <strong>Discount Code</strong><br><br>
+
+            <span style="
+                font-size:28px;
+                color:#d4af37;
+                font-weight:bold;
+                letter-spacing:2px;
+            ">
+                ${data.code}
+            </span>
+        </div>
+
+        <p>
+            Please keep this code and show it at checkout.
+        </p>
     `;
 }
 
@@ -25,12 +64,9 @@ if (saved) {
 
     const discount = Math.random() < 0.5 ? "15%" : "20%";
 
-    // يولد رقم خصم عشوائي
-    const code = "TN-" + Math.floor(100000 + Math.random() * 900000);
-
     const data = {
         discount: discount,
-        code: code
+        code: generateCode()
     };
 
     localStorage.setItem(key, JSON.stringify(data));
