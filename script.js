@@ -54,12 +54,15 @@ function show(data) {
 
 const saved = localStorage.getItem(key);
 
+const saved = localStorage.getItem(key);
+
 if (saved) {
-    // إذا كان لديه خصم سابق
+
     show(JSON.parse(saved));
+
 } else {
-    // انتظر حتى يضغط المستخدم الزر
-    button.addEventListener("click", () => {
+
+    button.addEventListener("click", function () {
 
         const discount = Math.random() < 0.5 ? "15%" : "20%";
 
@@ -73,4 +76,5 @@ if (saved) {
         show(data);
 
     });
+
 }
