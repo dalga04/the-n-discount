@@ -52,7 +52,6 @@ function show(data) {
     `;
 }
 
-const saved = localStorage.getItem(key);
 
 const saved = localStorage.getItem(key);
 
